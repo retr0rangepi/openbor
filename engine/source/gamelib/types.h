@@ -233,6 +233,12 @@ typedef struct
 
 typedef struct
 {
+    int     invert;     // Invert rotation when entity (only entity, sprite facing has no effect) faces opposite direction.
+    float   magnitude;  // Rotational magnitude, 360 degrees.
+} s_rotation;
+
+typedef struct
+{
     unsigned char *table;
     void *fp;
     unsigned fillcolor;
