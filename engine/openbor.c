@@ -77,7 +77,6 @@ const s_drawmethod plainmethod =
     .remap      = -1,
     .flipping   = { .x = 0,
                     .y = 0},
-    .flipx      = 0,
     .flipy      = 0,
     .transbg    = 0,
     .fliprotate = 0,
@@ -10634,7 +10633,7 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                     // special effects
                     drawmethod.scalex = GET_INT_ARG(1);
                     drawmethod.scaley = GET_INT_ARG(2);
-                    drawmethod.flipx = GET_INT_ARG(3);
+                    drawmethod.flipping.x = GET_INT_ARG(3);
                     drawmethod.flipy = GET_INT_ARG(4);
                     drawmethod.shiftx = GET_INT_ARG(5);
                     drawmethod.alpha = GET_INT_ARG(6);
@@ -10674,7 +10673,7 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                 }
                 else if (0 == stricmp(value, "flipx"))
                 {
-                    drawmethod.flipx = GET_INT_ARG(2);
+                    drawmethod.flipping.x = GET_INT_ARG(2);
                 }
                 else if (0 == stricmp(value, "flipy"))
                 {
@@ -10740,7 +10739,7 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                 if(drawmethod.scalex < 0)
                 {
                     drawmethod.scalex = -drawmethod.scalex;
-                    drawmethod.flipx = !drawmethod.flipx;
+                    drawmethod.flipping.x = !drawmethod.flipping.x;
                 }
                 if(drawmethod.scaley < 0)
                 {
@@ -16795,7 +16794,7 @@ void predrawstatus()
             else
             {
                 drawmethod.table = 0;
-                drawmethod.flipx = 1;
+                drawmethod.flipping.x = 1;
                 spriteq_add_sprite(40, 60 + videomodes.vShift, 10000, gosprite, &drawmethod, 0);
             }
         }
@@ -22101,7 +22100,7 @@ void display_ents()
 
                     if(e->direction == DIRECTION_LEFT)
                     {
-                        drawmethod->flipx = !drawmethod->flipx;
+                        drawmethod->flipping.x = !drawmethod->flipping.x;
                         if(drawmethod->fliprotate && drawmethod->rotate)
                         {
                             drawmethod->rotate = 360 - drawmethod->rotate;
@@ -22229,7 +22228,7 @@ void display_ents()
                             shadowmethod.channelb = shadowmethod.channelg = shadowmethod.channelr = shadowopacity;
                             shadowmethod.table = drawmethod->table;
                             shadowmethod.scalex = drawmethod->scalex;
-                            shadowmethod.flipx = drawmethod->flipx;
+                            shadowmethod.flipx = drawmethod->flipping.x;
                             shadowmethod.scaley = light.y * drawmethod->scaley / 256;
                             shadowmethod.flipy = drawmethod->flipy;
                             shadowmethod.centery += alty;

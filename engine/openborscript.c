@@ -13461,7 +13461,7 @@ HRESULT openbor_changedrawmethod(ScriptVariant **varlist , ScriptVariant **pretv
         {
             return E_FAIL;
         }
-        pmethod->flipx = (int)temp;
+        pmethod->flipping.x = (int)temp;
         break;
     case _dm_flipy:
         if(FAILED(ScriptVariant_IntegerValue(varlist[2], &temp)))
@@ -13713,7 +13713,7 @@ HRESULT openbor_getdrawmethod(ScriptVariant **varlist , ScriptVariant **pretvar,
             (*pretvar)->lVal = (int)pmethod->fliprotate;
             break;
         case _dm_flipx:
-            (*pretvar)->lVal = (int)pmethod->flipx;
+            (*pretvar)->lVal = (int)pmethod->flipping.x;
             break;
         case _dm_flipy:
             (*pretvar)->lVal = (int)pmethod->flipy;
@@ -13852,7 +13852,7 @@ HRESULT openbor_setdrawmethod(ScriptVariant **varlist , ScriptVariant **pretvar,
     pmethod->flag = (int)value[0];
     pmethod->scalex = (int)value[1];
     pmethod->scaley = (int)value[2];
-    pmethod->flipx = (int)value[3];
+    pmethod->flipping.x = (int)value[3];
     pmethod->flipy = (int)value[4];
     pmethod->shiftx = (int)value[5];
     pmethod->alpha = (int)value[6];
