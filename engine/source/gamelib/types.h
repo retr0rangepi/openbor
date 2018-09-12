@@ -228,6 +228,11 @@ typedef struct
 
 typedef struct
 {
+    s_axis_plane_vertical_int axis;
+} s_flipping;
+
+typedef struct
+{
     unsigned char *table;
     void *fp;
     unsigned fillcolor;
