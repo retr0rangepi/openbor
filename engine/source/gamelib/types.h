@@ -6,6 +6,8 @@
  * Copyright (c) 2004 - 2014 OpenBOR Team
  */
 
+#include "../axis.h"
+
 #ifndef GAMELIB_TYPES_H
 #define GAMELIB_TYPES_H
 
@@ -232,6 +234,7 @@ typedef struct
     int flag;
     int alpha;
     int remap;
+    s_axis_plane_vertical_int   flipping;
     int flipx;
     int flipy;
     int transbg;
