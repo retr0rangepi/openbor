@@ -337,6 +337,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../source/adpcmlib/adpcm.h" />
+		<Unit filename="../source/axis.h" />
 		<Unit filename="../source/gamelib/anigif.c">
 			<Option compilerVar="CC" />
 		</Unit>
