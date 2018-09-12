@@ -13468,7 +13468,7 @@ HRESULT openbor_changedrawmethod(ScriptVariant **varlist , ScriptVariant **pretv
         {
             return E_FAIL;
         }
-        pmethod->flipy = (int)temp;
+        pmethod->flipping.y = (int)temp;
         break;
     case _dm_perspective:
         if(FAILED(ScriptVariant_IntegerValue(varlist[2], &temp)))
@@ -13716,7 +13716,7 @@ HRESULT openbor_getdrawmethod(ScriptVariant **varlist , ScriptVariant **pretvar,
             (*pretvar)->lVal = (int)pmethod->flipping.x;
             break;
         case _dm_flipy:
-            (*pretvar)->lVal = (int)pmethod->flipy;
+            (*pretvar)->lVal = (int)pmethod->flipping.y;
             break;
         case _dm_perspective:
             (*pretvar)->lVal = (int)pmethod->water.perspective;
@@ -13853,7 +13853,7 @@ HRESULT openbor_setdrawmethod(ScriptVariant **varlist , ScriptVariant **pretvar,
     pmethod->scalex = (int)value[1];
     pmethod->scaley = (int)value[2];
     pmethod->flipping.x = (int)value[3];
-    pmethod->flipy = (int)value[4];
+    pmethod->flipping.y = (int)value[4];
     pmethod->shiftx = (int)value[5];
     pmethod->alpha = (int)value[6];
     pmethod->remap = (int)value[7];

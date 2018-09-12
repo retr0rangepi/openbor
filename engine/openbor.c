@@ -10634,7 +10634,7 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                     drawmethod.scalex = GET_INT_ARG(1);
                     drawmethod.scaley = GET_INT_ARG(2);
                     drawmethod.flipping.x = GET_INT_ARG(3);
-                    drawmethod.flipy = GET_INT_ARG(4);
+                    drawmethod.flipping.y = GET_INT_ARG(4);
                     drawmethod.shiftx = GET_INT_ARG(5);
                     drawmethod.alpha = GET_INT_ARG(6);
                     drawmethod.remap = GET_INT_ARG(7);
@@ -10677,7 +10677,7 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                 }
                 else if (0 == stricmp(value, "flipy"))
                 {
-                    drawmethod.flipy = GET_INT_ARG(2);
+                    drawmethod.flipping.y = GET_INT_ARG(2);
                 }
                 else if (0 == stricmp(value, "shiftx"))
                 {
@@ -10744,7 +10744,7 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                 if(drawmethod.scaley < 0)
                 {
                     drawmethod.scaley = -drawmethod.scaley;
-                    drawmethod.flipy = !drawmethod.flipy;
+                    drawmethod.flipping.y = !drawmethod.flipping.y;
                 }
                 if(drawmethod.rotate)
                 {
@@ -22230,16 +22230,16 @@ void display_ents()
                             shadowmethod.scalex = drawmethod->scalex;
                             shadowmethod.flipping.x = drawmethod->flipping.x;
                             shadowmethod.scaley = light.y * drawmethod->scaley / 256;
-                            shadowmethod.flipy = drawmethod->flipy;
+                            shadowmethod.flipping.y = drawmethod->flipping.y;
                             shadowmethod.centery += alty;
-                            if(shadowmethod.flipy)
+                            if(shadowmethod.flipping.y)
                             {
                                 shadowmethod.centery = -shadowmethod.centery;
                             }
                             if(shadowmethod.scaley < 0)
                             {
                                 shadowmethod.scaley = -shadowmethod.scaley;
-                                shadowmethod.flipy = !shadowmethod.flipy;
+                                shadowmethod.flipping.y = !shadowmethod.flipping.y;
                             }
                             shadowmethod.rotate = drawmethod->rotate;
                             shadowmethod.shiftx = drawmethod->shiftx + light.x;
@@ -22247,7 +22247,7 @@ void display_ents()
                             spriteq_add_sprite(qx, qy, z, f, &shadowmethod, 0);
                             if(use_mirror)
                             {
-                                shadowmethod.flipy = !shadowmethod.flipy;
+                                shadowmethod.flipping.y = !shadowmethod.flipping.y;
                                 shadowmethod.centery = -shadowmethod.centery;
                                 spriteq_add_sprite(qx, sy, sz, f, &shadowmethod, 0);
                             }
