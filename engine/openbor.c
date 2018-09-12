@@ -22228,7 +22228,7 @@ void display_ents()
                             shadowmethod.channelb = shadowmethod.channelg = shadowmethod.channelr = shadowopacity;
                             shadowmethod.table = drawmethod->table;
                             shadowmethod.scalex = drawmethod->scalex;
-                            shadowmethod.flipx = drawmethod->flipping.x;
+                            shadowmethod.flipping.x = drawmethod->flipping.x;
                             shadowmethod.scaley = light.y * drawmethod->scaley / 256;
                             shadowmethod.flipy = drawmethod->flipy;
                             shadowmethod.centery += alty;
@@ -22312,7 +22312,7 @@ void display_ents()
 
                         shadowmethod = plainmethod;
                         shadowmethod.alpha = BLEND_MULTIPLY + 1;
-                        shadowmethod.flipx = !e->direction;
+                        shadowmethod.flipping.x = !e->direction;
 
                         spriteq_add_sprite(qx, qy, z, shadowsprites[useshadow - 1], &shadowmethod, 0);
                         if(use_mirror)
