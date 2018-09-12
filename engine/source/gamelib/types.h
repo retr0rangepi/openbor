@@ -235,7 +235,6 @@ typedef struct
     int alpha;
     int remap;
     s_axis_plane_vertical_int   flipping;
-    int flipy;
     int transbg;
     int fliprotate; // entity only, whether the flip is affected by the entity's facing(not the sprite's flip )
     float rotate; // 360 degrees

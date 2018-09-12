@@ -77,7 +77,6 @@ const s_drawmethod plainmethod =
     .remap      = -1,
     .flipping   = { .x = 0,
                     .y = 0},
-    .flipy      = 0,
     .transbg    = 0,
     .fliprotate = 0,
     .rotate     = 0,
