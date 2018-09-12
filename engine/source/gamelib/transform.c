@@ -804,8 +804,8 @@ void gfx_draw_rotate(s_screen *dest, gfx_entry *src, int x, int y, int centerx, 
     centery += drawmethod->centery;
 
     /////////////////begin clipping////////////////////////////
-    xboundf[0] = drawmethod->flipping.x ? (centerx - trans_sw) * zoomx : -centerx * zoomx;
-    yboundf[0] = drawmethod->flipping.y ? (centery - trans_sh) * zoomy : -centery * zoomy;
+    xboundf[0] = drawmethod->flipping.axis.x ? (centerx - trans_sw) * zoomx : -centerx * zoomx;
+    yboundf[0] = drawmethod->flipping.axis.y ? (centery - trans_sh) * zoomy : -centery * zoomy;
     xboundf[1] = xboundf[0] + trans_sw * zoomx;
     yboundf[1] = yboundf[0];
     xboundf[2] = xboundf[0];
@@ -826,7 +826,7 @@ void gfx_draw_rotate(s_screen *dest, gfx_entry *src, int x, int y, int centerx, 
     /////////////////end clipping////////////////////////////
 
     // tricks to keep rotate not affected by flip
-    if(drawmethod->flipping.x)
+    if(drawmethod->flipping.axis.x)
     {
         zoomx = -zoomx;
     }
@@ -834,7 +834,7 @@ void gfx_draw_rotate(s_screen *dest, gfx_entry *src, int x, int y, int centerx, 
     {
         angle = -angle;
     }
-    if(drawmethod->flipping.y)
+    if(drawmethod->flipping.axis.y)
     {
         zoomy = -zoomy;
         angle = -angle;
@@ -904,8 +904,8 @@ void gfx_draw_rotate(s_screen *dest, gfx_entry *src, int x, int y, int centerx, 
     centery += drawmethod->centery;
 
     /////////////////begin clipping////////////////////////////
-    xboundf[0] = drawmethod->flipping.x ? (centerx - trans_sw) * zoomx : -centerx * zoomx;
-    yboundf[0] = drawmethod->flipping.y ? (centery - trans_sh) * zoomy : -centery * zoomy;
+    xboundf[0] = drawmethod->flipping.axis.x ? (centerx - trans_sw) * zoomx : -centerx * zoomx;
+    yboundf[0] = drawmethod->flipping.axis.y ? (centery - trans_sh) * zoomy : -centery * zoomy;
     xboundf[1] = xboundf[0] + trans_sw * zoomx;
     yboundf[1] = yboundf[0];
     xboundf[2] = xboundf[0];
@@ -930,7 +930,7 @@ void gfx_draw_rotate(s_screen *dest, gfx_entry *src, int x, int y, int centerx, 
     /////////////////end clipping////////////////////////////
 
     // tricks to keep rotate not affected by flip
-    if(drawmethod->flipping.x)
+    if(drawmethod->flipping.axis.x)
     {
         zoomx = -zoomx;
     }
@@ -938,7 +938,7 @@ void gfx_draw_rotate(s_screen *dest, gfx_entry *src, int x, int y, int centerx, 
     {
         angle = -angle;
     }
-    if(drawmethod->flipping.y)
+    if(drawmethod->flipping.axis.y)
     {
         zoomy = -zoomy;
         angle = -angle;
@@ -1081,7 +1081,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
     qx[3] = qx[0];
     qy[3] = qy[2];
 
-    if(drawmethod->flipping.y)
+    if(drawmethod->flipping.axis.y)
     {
         shiftf = -shiftf;
         for(i = 0; i < 4; i++)
@@ -1089,7 +1089,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
             qy[i] = 2 * y - qy[i];
         }
     }
-    if(drawmethod->flipping.x)
+    if(drawmethod->flipping.axis.x)
     {
         for(i = 0; i < 4; i++)
         {
@@ -1140,7 +1140,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
 
     //if(!zoomy || !zoomx) return; //should be checked already
 
-    //printf("==%d %d %d %d %d\n", drawmethod->scalex, drawmethod->scaley, drawmethod->flipping.x, drawmethod->flipping.y, drawmethod->shiftx);
+    //printf("==%d %d %d %d %d\n", drawmethod->scalex, drawmethod->scaley, drawmethod->flipping.axis.x, drawmethod->flipping.axis.y, drawmethod->shiftx);
 
     init_gfx_global_draw_stuff(dest, src, drawmethod);
     if(!trans_sw)
@@ -1156,7 +1156,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
     cx = centerx * zoomx;
     cy = centery * zoomy;
 
-    if(drawmethod->flipping.x)
+    if(drawmethod->flipping.axis.x)
     {
         dx = cx - w + x;
     }
@@ -1165,7 +1165,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
         dx = x - cx;
     }
 
-    if(drawmethod->flipping.y)
+    if(drawmethod->flipping.axis.y)
     {
         dy = cy - h + y;
         shiftf = - shiftf;
@@ -1177,7 +1177,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
 
     dx += (dy + h - y) * shiftf;
 
-    if(drawmethod->flipping.x)
+    if(drawmethod->flipping.axis.x)
     {
         stepdx = 1.0 / zoomx;
         osx = 0.0;
@@ -1187,7 +1187,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
         stepdx = -1.0 / zoomx;
         osx = trans_sw + stepdx;
     }
-    if(drawmethod->flipping.y)
+    if(drawmethod->flipping.axis.y)
     {
         stepdy = 1.0 / zoomy;
         sy = 0.0;
@@ -1313,7 +1313,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
     cx = centerx * zoomx;
     cy = centery * zoomy;
 
-    if(drawmethod->flipping.x)
+    if(drawmethod->flipping.axis.x)
     {
         dx = cx - w + x;
     }
@@ -1322,7 +1322,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
         dx = x - cx;
     }
 
-    if(drawmethod->flipping.y)
+    if(drawmethod->flipping.axis.y)
     {
         dy = cy - h + y;
         shiftf = - shiftf;
@@ -1334,7 +1334,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
 
     dx += ((dy + h - y) * shiftf) >> 8;
 
-    if(drawmethod->flipping.x)
+    if(drawmethod->flipping.axis.x)
     {
         stepdx = 65536 / zoomx;
         osx = 0;
@@ -1344,7 +1344,7 @@ void gfx_draw_scale(s_screen *dest, gfx_entry *src, int x, int y, int centerx, i
         stepdx = -65536 / zoomx;
         osx = (trans_sw << 8) + stepdx;
     }
-    if(drawmethod->flipping.y)
+    if(drawmethod->flipping.axis.y)
     {
         stepdy = 65536 / zoomy;
         sy = 0;
