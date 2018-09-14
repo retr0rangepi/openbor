@@ -78,8 +78,8 @@ const s_drawmethod plainmethod =
     .flipping   = { .axis = {   .x = 0,
                                 .y = 0}},
     .transbg    = 0,
-    .fliprotate = 0,
-    .rotate     = 0,
+    .rotation   = { .invert     = 0,
+                    .magnitude  = 0},
     .scalex     = 256,
     .scaley     = 256,
     .shiftx     = 0,
@@ -10638,8 +10638,8 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                     drawmethod.alpha = GET_INT_ARG(6);
                     drawmethod.remap = GET_INT_ARG(7);
                     drawmethod.fillcolor = parsecolor(GET_ARG(8));
-                    drawmethod.rotate = GET_INT_ARG(9);
-                    drawmethod.fliprotate = GET_INT_ARG(10);
+                    drawmethod.rotation.magnitude = GET_INT_ARG(9);
+                    drawmethod.rotation.invert = GET_INT_ARG(10);
                 }
                 else if (0 == stricmp(value, "scale"))
                 {
@@ -10684,15 +10684,15 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                 }
                 else if (0 == stricmp(value, "rotate"))
                 {
-                    drawmethod.rotate = GET_INT_ARG(2);
+                    drawmethod.rotation.magnitude = GET_INT_ARG(2);
                 }
                 else if (0 == stricmp(value, "fliprotate"))
                 {
-                    drawmethod.fliprotate = GET_INT_ARG(2);
+                    drawmethod.rotation.invert = GET_INT_ARG(2);
                 }
                 else if (0 == stricmp(value, "fillcolor"))
                 {
-                    drawmethod.fliprotate = parsecolor(GET_ARG(2));
+                    drawmethod.rotation.invert = parsecolor(GET_ARG(2));
                 }
                 else if (0 == stricmp(value, "remap"))
                 {
@@ -10745,9 +10745,9 @@ s_model *load_cached_model(char *name, char *owner, char unload)
                     drawmethod.scaley = -drawmethod.scaley;
                     drawmethod.flipping.axis.y = !drawmethod.flipping.axis.y;
                 }
-                if(drawmethod.rotate)
+                if(drawmethod.rotation.magnitude)
                 {
-                    drawmethod.rotate = ((int)drawmethod.rotate % 360 + 360) % 360;
+                    drawmethod.rotation.magnitude = ((int)drawmethod.rotation.magnitude % 360 + 360) % 360;
                 }
                 if(!blendfx_is_set)
                 {
@@ -22100,9 +22100,9 @@ void display_ents()
                     if(e->direction == DIRECTION_LEFT)
                     {
                         drawmethod->flipping.axis.x = !drawmethod->flipping.axis.x;
-                        if(drawmethod->fliprotate && drawmethod->rotate)
+                        if(drawmethod->rotation.invert && drawmethod->rotation.magnitude)
                         {
-                            drawmethod->rotate = 360 - drawmethod->rotate;
+                            drawmethod->rotation.magnitude = 360 - drawmethod->rotation.magnitude;
                         }
                     }
 
@@ -22240,7 +22240,7 @@ void display_ents()
                                 shadowmethod.scaley = -shadowmethod.scaley;
                                 shadowmethod.flipping.axis.y = !shadowmethod.flipping.axis.y;
                             }
-                            shadowmethod.rotate = drawmethod->rotate;
+                            shadowmethod.rotation.magnitude = drawmethod->rotation.magnitude;
                             shadowmethod.shiftx = drawmethod->shiftx + light.x;
 
                             spriteq_add_sprite(qx, qy, z, f, &shadowmethod, 0);

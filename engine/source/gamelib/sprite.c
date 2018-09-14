@@ -581,7 +581,7 @@ void putsprite_ex(int x, int y, s_sprite *frame, s_screen *screen, s_drawmethod 
     }
 
     // no scale, no shift, no flip, no fill, so use common method
-    if(!drawmethod->water.watermode && drawmethod->scalex == 256 && drawmethod->scaley == 256 && !drawmethod->flipping.axis.y && !drawmethod->shiftx && drawmethod->fillcolor == TRANSPARENT_IDX && !drawmethod->rotate)
+    if(!drawmethod->water.watermode && drawmethod->scalex == 256 && drawmethod->scaley == 256 && !drawmethod->flipping.axis.y && !drawmethod->shiftx && drawmethod->fillcolor == TRANSPARENT_IDX && !drawmethod->rotation.magnitude)
     {
         if(drawmethod->flipping.axis.x)
         {
@@ -617,7 +617,7 @@ void putsprite_ex(int x, int y, s_sprite *frame, s_screen *screen, s_drawmethod 
     {
         gfx_draw_water(screen, &gfx, x, y, frame->centerx, frame->centery, drawmethod);
     }
-    else if(drawmethod->rotate)
+    else if(drawmethod->rotation.magnitude)
     {
         gfx_draw_rotate(screen, &gfx, x, y, frame->centerx, frame->centery, drawmethod);
     }

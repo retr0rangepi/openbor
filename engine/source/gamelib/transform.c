@@ -790,7 +790,7 @@ void gfx_draw_rotate(s_screen *dest, gfx_entry *src, int x, int y, int centerx, 
     float xboundf[4], yboundf[4];
     zoomx = drawmethod->scalex / 256.0;
     zoomy = drawmethod->scaley / 256.0;
-    angle = drawmethod->rotate;
+    angle = drawmethod->rotation.magnitude;
     sina = sin_table[(int)angle];
     cosa = cos_table[(int)angle];
 
@@ -890,7 +890,7 @@ void gfx_draw_rotate(s_screen *dest, gfx_entry *src, int x, int y, int centerx, 
     float xboundf[4], yboundf[4];
     zoomx = drawmethod->scalex / 256.0;
     zoomy = drawmethod->scaley / 256.0;
-    angle = drawmethod->rotate;
+    angle = drawmethod->rotation.magnitude;
     sina = sin_table[(int)angle];
     cosa = cos_table[(int)angle];
 

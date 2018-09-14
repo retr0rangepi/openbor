@@ -13454,7 +13454,7 @@ HRESULT openbor_changedrawmethod(ScriptVariant **varlist , ScriptVariant **pretv
         {
             return E_FAIL;
         }
-        pmethod->fliprotate = (int)temp;
+        pmethod->rotation.invert = (int)temp;
         break;
     case _dm_flipx:
         if(FAILED(ScriptVariant_IntegerValue(varlist[2], &temp)))
@@ -13499,7 +13499,7 @@ HRESULT openbor_changedrawmethod(ScriptVariant **varlist , ScriptVariant **pretv
         {
             return E_FAIL;
         }
-        pmethod->rotate = (float)temp;
+        pmethod->rotation.magnitude = (float)temp;
         break;
     case _dm_scalex:
         if(FAILED(ScriptVariant_IntegerValue(varlist[2], &temp)))
@@ -13710,7 +13710,7 @@ HRESULT openbor_getdrawmethod(ScriptVariant **varlist , ScriptVariant **pretvar,
             (*pretvar)->lVal = (int)pmethod->fillcolor;
             break;
         case _dm_fliprotate:
-            (*pretvar)->lVal = (int)pmethod->fliprotate;
+            (*pretvar)->lVal = (int)pmethod->rotation.invert;
             break;
         case _dm_flipx:
             (*pretvar)->lVal = (int)pmethod->flipping.axis.x;
@@ -13725,7 +13725,7 @@ HRESULT openbor_getdrawmethod(ScriptVariant **varlist , ScriptVariant **pretvar,
             (*pretvar)->lVal = (int)pmethod->remap;
             break;
         case _dm_rotate:
-            (*pretvar)->lVal = (int)pmethod->rotate;
+            (*pretvar)->lVal = (int)pmethod->rotation.magnitude;
             break;
         case _dm_scalex:
             (*pretvar)->lVal = (int)pmethod->scalex;
@@ -13858,8 +13858,8 @@ HRESULT openbor_setdrawmethod(ScriptVariant **varlist , ScriptVariant **pretvar,
     pmethod->alpha = (int)value[6];
     pmethod->remap = (int)value[7];
     pmethod->fillcolor = (int)value[8];
-    pmethod->rotate = ((int)value[9]) % 360;
-    pmethod->fliprotate = (int)value[10];
+    pmethod->rotation.magnitude = ((int)value[9]) % 360;
+    pmethod->rotation.invert = (int)value[10];
     pmethod->transbg = (int)value[11];
     if(paramCount >= 14)
     {
@@ -13868,9 +13868,9 @@ HRESULT openbor_setdrawmethod(ScriptVariant **varlist , ScriptVariant **pretvar,
     pmethod->centerx = (int)value[12];
     pmethod->centery = (int)value[13];
 
-    if(pmethod->rotate < 0)
+    if(pmethod->rotation.magnitude < 0)
     {
-        pmethod->rotate += 360;
+        pmethod->rotation.magnitude += 360;
     }
     return S_OK;
 

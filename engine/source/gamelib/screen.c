@@ -494,7 +494,7 @@ static void _putscreen(s_screen *dest, s_screen *src, int x, int y, s_drawmethod
         }
         return ;
     }
-    else if(drawmethod->rotate)
+    else if(drawmethod->rotation.magnitude)
     {
         gfx.screen = src;
         gfx_draw_rotate(dest, &gfx, x, y, 0, 0, drawmethod);
