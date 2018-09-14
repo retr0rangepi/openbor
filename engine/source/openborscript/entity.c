@@ -318,6 +318,13 @@ HRESULT openbor_get_entity_property(ScriptVariant **varlist , ScriptVariant **pr
 
             break;
 
+        case _ENTITY_DRAWMETHOD:
+
+             ScriptVariant_ChangeType(*pretvar, VT_PTR);
+            (*pretvar)->ptrVal = (s_drawmethod *)&handle->drawmethod;
+
+            break;
+
         case _ENTITY_ENERGY_STATUS:
 
             ScriptVariant_ChangeType(*pretvar, VT_PTR);
@@ -670,6 +677,12 @@ HRESULT openbor_set_entity_property(ScriptVariant **varlist, ScriptVariant **pre
             {
                 handle->deduct_ammo = temp_int;
             }
+
+            break;
+
+        case _ENTITY_DRAWMETHOD:
+
+            // Read only.
 
             break;
 
