@@ -11,7 +11,7 @@
 
 #include "gfxtypes.h"
 #include "types.h"
-#include "yuv.h"
+#include "/home/pi/openbor/engine/source/webmlib/yuv.h"
 #include "SDL.h"
 
 extern u8 pDeltaBuffer[480 * 2592];

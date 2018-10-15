@@ -10,7 +10,7 @@
 #define BOR_OPENGL_H
 
 #include "types.h"
-#include "yuv.h"
+#include "/home/pi/openbor/engine/source/webmlib/yuv.h"
 #include "videocommon.h"
 
 #ifdef OPENGL

@@ -10,7 +10,7 @@
 #
 #               	OpenBOR Makefile for ALL TARGET_PLATFORMs
 #
-#             PSP, PS3, Wii, Pandora, Windows, Darwin & Linux
+#             PSP, PS3, Wii, OrangePi, Windows, Darwin & Linux
 #
 #----------------------------------------------------------------------------------------------------
 
@@ -133,10 +133,10 @@ BUILD_DEBUG     = 1
 endif
 endif
 
-ifdef BUILD_PANDORA
+ifdef BUILD_RETRORANGEPI
 TARGET 	        = $(VERSION_NAME).elf
 TARGET_FINAL    = $(VERSION_NAME)
-TARGET_PLATFORM = PANDORA
+TARGET_PLATFORM = RETRORANGEPI
 BUILD_LINUX     = 1
 BUILD_SDL       = 1
 BUILD_GFX       = 1
@@ -144,12 +144,12 @@ BUILD_PTHREAD   = 1
 BUILD_SDL_IO    = 1
 BUILD_TREMOR    = 1
 BUILDING        = 1
-CC  	        = $(PNDDEV)/bin/arm-none-linux-gnueabi-gcc
-INCLUDES        = $(PNDDEV)/include \
-                  $(PNDDEV)/include/SDL
+CC  	        = /usr/bin/arm-linux-gnueabihf-gcc
+INCLUDES        = /usr/local/include \
+                  /usr/local/SDL2
 OBJTYPE         = elf
-LIBRARIES       = $(PNDDEV)/lib
-ifeq ($(BUILD_PANDORA), 0)
+LIBRARIES       = /usr/local/lib
+ifeq ($(BUILD_RETRORANGEPI), 0)
 BUILD_DEBUG     = 1
 endif
 endif
@@ -198,8 +198,8 @@ endif
 ifdef BUILD_DARWIN
 STRIP           = $(PREFIX)strip $(TARGET) -o $(TARGET_FINAL)
 endif
-ifdef BUILD_PANDORA
-STRIP 	        = $(PNDDEV)/bin/arm-none-linux-gnueabi-strip $(TARGET) -o $(TARGET_FINAL)
+ifdef BUILD_RETRORANGEPI
+STRIP 	        = /usr/bin/arm-linux-gnueabihf-strip $(TARGET) -o $(TARGET_FINAL)
 endif
 ifdef BUILD_WII
 STRIP           = elf2dol $< $@
@@ -481,7 +481,7 @@ CFLAGS 	       += -DLINUX -headerpad_max_install_names -isysroot $(SDKPATH)
 endif
 
 
-ifdef BUILD_PANDORA
+ifdef BUILD_RETRORANGEPI
 CFLAGS         += -DLINUX
 endif
 
@@ -563,11 +563,11 @@ endif
 
 
 ifdef BUILD_SDL
-ifeq ($(findstring DGE, $(SDKPATH)), DGE)
-LIBS           += -lSDL -lSDL_gfx -lts
-else
+#ifeq ($(findstring DGE, $(SDKPATH)), DGE)
+#LIBS           += -lSDL -lSDL_gfx -lts
+#else
 LIBS           += -Wl,-rpath,$(LIBRARIES) -lSDL2 -lSDL2_gfx
-endif
+#endif
 endif
 
 
@@ -728,7 +728,7 @@ all:
 	@echo make BUILD_PS2=1
 	@echo make BUILD_WII=1
 	@echo make BUILD_WIN=1
-	@echo make BUILD_PANDORA=1
+	@echo make BUILD_RETRORANGEPI=1
 	@echo make BUILD_LINUX=1
 	@echo
 	@echo Cleanup Intermediate Files:

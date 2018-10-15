@@ -13,7 +13,7 @@
 #else
 
 #include "sdlport.h"
-#include "SDL2_framerate.h"
+#include "/home/pi/openbor/engine/SDL2_framerate.h"
 
 #include <math.h>
 #include "types.h"
